@@ -1,84 +1,99 @@
+import { useState } from "react";
+
 import {
 	StyleSheet,
 	Text,
 	View,
 	Button,
 	TextInput,
-	SafeAreaView,
+	ScrollView,
+	FlatList,
 } from "react-native";
 
 export default function App() {
+	const [enteredGoalText, setEnteredGoalText] = useState("");
+	const [courseGoals, setCourseGoals] = useState([]);
+
+	function goalInputHandler(enteredText) {
+		setEnteredGoalText(enteredText);
+	}
+
+	function addGoalHandler() {
+		// setCourseGoals([...courseGoals , enteredGoalText])
+		setCourseGoals((currentCourseGoal) => [
+			...currentCourseGoal,
+			enteredGoalText,
+		]);
+	}
 	return (
-		<View style={styles.mainContainer}>
-			<View style={styles.wrapperContainer}>
-				<View style={styles.firstContainer}>
-					<Text style={styles.textColor}>1</Text>
-				</View>
-				<View style={styles.secondContainer}>
-					<Text style={styles.textColor}>2</Text>
-				</View>
-				<View style={styles.thirdContainer}>
-					<Text style={styles.textColor}>3</Text>
-				</View>
+		<View style={styles.appContainer}>
+			<View style={styles.inputWrapperContainer}>
+				<TextInput
+					style={styles.InputTextContainer}
+					placeholder="Your Course Goals !!"
+					onChangeText={goalInputHandler}
+				/>
+
+				<Button title="Button" onPress={addGoalHandler} />
+			</View>
+			<View style={styles.goalsContainer}>
+				<ScrollView style={styles.goalsContainer}>
+					{courseGoals.map((goal) => (
+						<View>
+							<Text style={styles.goalItem} key={goal}>
+								{goal}
+							</Text>
+						</View>
+					))}
+				</ScrollView>
 			</View>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	mainContainer: {
+	appContainer: {
+		backgroundColor: "black",
 		paddingTop: 50,
-		paddingLeft: 10,
-		paddingRight: 10,
-		backgroundColor: "grey",
-		height: "100%",
-		width: "100%",
-		justifyContent: "center",
-		alignItems: "center",
+		paddingHorizontal: 10,
+		flex: 1, //al the available height because of
 	},
-	wrapperContainer: {
-		height: "90%",
-		width: "100%",
-		backgroundColor: "white",
-		borderRadius: 30,
-		flexDirection: "column",
+	inputWrapperContainer: {
+		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		padding: 20,
+		marginBottom: 24,
+		borderBottomWidth: 1,
+		borderBottomColor: "red",
+		flex: 1,
+		// backgroundColor: "orange",
 	},
-	firstContainer: {
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		justifyContent: "center",
-		alignItems: "center",
-		marginBottom: 10,
-		borderRadius: 10,
+	InputTextContainer: {
+		padding: 10,
+		borderWidth: 2,
+		borderColor: "grey",
+		width: "75%",
+		fontSize: 20,
+		marginRight: 10,
 		color: "white",
-	},
-	secondContainer: {
-		backgroundColor: "blue",
-		width: 100,
-		height: 100,
-		justifyContent: "center",
-		alignItems: "center",
-		marginBottom: 10,
 		borderRadius: 10,
-		color: "white",
-	},
-	thirdContainer: {
-		backgroundColor: "green",
-		width: 100,
-		height: 100,
-		justifyContent: "center",
-		alignItems: "center",
-		borderRadius: 10,
-		color: "white",
-		marginBottom: 10,
 	},
 	textColor: {
+		// color: "red",
+		// fontWeight: "900",
+		// fontSize: 30,
+	},
+	goalsContainer: {
+		flex: 4,
+		// backgroundColor: "green",
+	},
+	goalItem: {
+		borderRadius: 6,
+		borderWidth: 1,
+		backgroundColor: "#5e0acc",
+		padding: 8,
+		margin: 8,
 		color: "white",
-		fontWeight: "bold",
-		fontSize: 30,
+		fontSize: 20,
 	},
 });
