@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 
-function GoalInput(props) {
+function GoalItem(props) {
 	return (
 		<View style={styles.goalItem}>
 			<Text style={styles.goalText}>{props.text}</Text>
@@ -8,7 +8,7 @@ function GoalInput(props) {
 	);
 }
 
-export default GoalInput;
+export default GoalItem;
 
 const styles = StyleSheet.create({
 	goalItem: {
@@ -22,5 +22,7 @@ const styles = StyleSheet.create({
 	},
 	goalText: {
 		color: "white",
+		fontWeight: "bold",
+		fontSize: 20,
 	},
 });
