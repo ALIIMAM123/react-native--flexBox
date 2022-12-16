@@ -20,7 +20,7 @@ export default function App() {
 		setModalIsVisible(false);
 	}
 
-	// Adding CourseGoals
+	//   Adding CourseGoals
 
 	function onAddGoalHandler(enteredTextGoal) {
 		setCourseGoals((currentCourseGoal) => [
